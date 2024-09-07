@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose port 80
-EXPOSE 5345
+EXPOSE 5173
 
 # Start nginx
 CMD ["npm","run","dev"]
