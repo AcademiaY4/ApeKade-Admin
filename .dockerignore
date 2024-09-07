@@ -33,3 +33,7 @@ Thumbs.db
 # Logs and temporary files
 *.log
 *.tmp
+
+# netlfiy configs
+netlfiy.toml
+
