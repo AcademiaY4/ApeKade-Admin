@@ -30,7 +30,7 @@ export default function SignIn() {
                                 </div>
                                 <div className="d-flex justify-content-end mb-4 mt-1">
                                     <div>
-                                        <a href="../pages/forgot-password.html">
+                                        <a href="">
                                             Forgot password?
                                         </a>
                                     </div>

@@ -23,7 +23,7 @@ export default function ForgotPassword() {
                                     </div>
                                     <div className="col-12 d-grid gap-2">
                                         <button type="submit" className="btn btn-primary">Reset Password</button>
-                                        <a href="signup.html" className="btn btn-light">Back</a>
+                                        <a href="#" className="btn btn-light">Back</a>
                                     </div>
                                 </div>
                             </form>
