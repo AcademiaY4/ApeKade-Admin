@@ -1,4 +1,5 @@
 import React from 'react'
+import LocalStore from '../../../Store/LocalStore'
 
 export default function SignIn() {
     return (
@@ -39,7 +40,7 @@ export default function SignIn() {
                                 <div className="col-12 d-grid"><button type="submit" className="btn btn-primary">Sign In</button></div>
                                 {/* link */}
                                 <p className='text-capitalize'>
-                                With great power comes great 
+                                    With great power comes great
                                     <span className='text-danger'> responsibility!!</span>
                                 </p>
                             </div>

@@ -1,43 +1,28 @@
-import React from 'react'
-import Header from '../../Components/Header/Header'
-import MainSideNav from '../../Components/SideBar/MainSideNav'
-import Dashboard from './Dashboard/Dashboard'
-import Products from './Products/Products'
-import Categories from './Categories/Categories'
-import Orders from './Orders/Orders'
-import Sellers from './Sellers/Sellers'
-import Customers from './Customers/Customers'
-import Reviews from './Reviews/Reviews'
-import AddProducts from './AddProducts/AddProducts'
-import AddCategory from './AddCategory/AddCategory'
-import AddCustomers from './AddCustomers/AddCustomers'
-import AddSeller from './AddSeller/AddSeller'
-import Profile from './Profile/Profile'
-import AppNotifications from './AppNotifications/AppNotifications'
-import { Outlet } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import LocalStore from '../../Store/LocalStore';
+import Header from '../../Components/Header/Header';
+import MainSideNav from '../../Components/SideBar/MainSideNav';
+import AdminStack from './AdminStack/AdminStack';
+import VendorStack from './VendorStack/VendorStack';
+import CsrStack from './CsrStack/CsrStack';
+import { Navigate, Outlet } from 'react-router-dom';
+import Authenticate from '../../Store/Authenticate';
+import { useAuth } from '../../Context/AuthContext';
 
 export default function AppStack() {
-  return (
-    <>
-      <Header />
-      <div className="main-wrapper">
-        <MainSideNav />
-        {/* outlet */}
-        <Outlet/>
-        {/* <Dashboard/> */}
-        {/* <Products/> */}
-        {/* <Categories/> */}
-        {/* <Orders/> */}
-        {/* <Sellers/> */}
-        {/* <Customers/> */}
-        {/* <Reviews/> */}
-        {/* <AddProducts/> */}
-        {/* <AddCategory/> */}
-        {/* <AddCustomers/> */}
-        {/* <AddSeller/> */}
-        {/* <Profile/> */}
-        {/* <AppNotifications/> */}
-      </div>
-    </>
-  )
+    const { isAuthenticated } = useAuth();
+
+    // If the user is unauthenticated, redirect them to the signIn
+    if (!isAuthenticated()) {
+        return <Navigate to="/auth/signIn" />;
+    }
+    return (
+        <>
+            <Header />
+            <div className="main-wrapper">
+                <MainSideNav />
+                <Outlet />
+            </div>
+        </>
+    );
 }
