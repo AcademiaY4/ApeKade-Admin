@@ -11,6 +11,10 @@ class LocalStore {
         const tokenData = this.getAuth();
         return tokenData ? tokenData?.user?.Role : null;
     }
+    getUser() {
+        const tokenData = this.getAuth();
+        return tokenData ? tokenData?.user : null;
+    }
 
     removeAuth() {
         localStorage.removeItem("auth");

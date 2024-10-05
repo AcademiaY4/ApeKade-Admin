@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../../Context/AuthContext'
 
 export default function DashBanner() {
-    const { user } = useAuth()
+    // const { user } = useAuth()
+    const user = LocalStore.getUser()
 
     const navigate = useNavigate()
     const navToUsers = () => {
@@ -15,7 +16,7 @@ export default function DashBanner() {
                 {/* card */}
                 <div className="card-lg bg-light p-8 border-0 rounded-4" style={{ backgroundImage: 'url(/assets/images/banner/mainAdminBanner.png)', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'right' }}>
                     <div className="card-body">
-                        <h1 className='text-capitalize'>Hi {user.FirstName} 👋</h1>
+                        <h1 className='text-capitalize'>Hi {user?.FirstName} 👋</h1>
                         <p className='text-capitalize'>Users are waiting , until your services to the apeKade.</p>
                         <button onClick={()=>{navToUsers()}} className="btn btn-primary">See All Users</button>
                     </div>

@@ -8,6 +8,7 @@ import CsrStack from './CsrStack/CsrStack';
 import { Navigate, Outlet } from 'react-router-dom';
 import Authenticate from '../../Store/Authenticate';
 import { useAuth } from '../../Context/AuthContext';
+import PreLoader from '../../Components/PreLoader/PreLoader';
 
 export default function AppStack() {
     const { isAuthenticated } = useAuth();

@@ -7,19 +7,6 @@ export default function VendorStack() {
     return (
         <>
             <Outlet />
-            {/* <Dashboard/> */}
-            {/* <Products/> */}
-            {/* <Categories/> */}
-            {/* <Orders/> */}
-            {/* <Sellers/> */}
-            {/* <Customers/> */}
-            {/* <Reviews/> */}
-            {/* <AddProducts/> */}
-            {/* <AddCategory/> */}
-            {/* <AddCustomers/> */}
-            {/* <AddSeller/> */}
-            {/* <Profile/> */}
-            {/* <AppNotifications/> */}
         </>
     )
 }

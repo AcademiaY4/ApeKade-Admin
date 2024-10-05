@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import LocalStore from '../Store/LocalStore';
+import Toaster from '../Utils/Toaster/Toaster';
 
 // Create a context
 const AuthContext = createContext();
@@ -8,16 +9,17 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [auth, setAuth] = useState(() => LocalStore.getAuth());
   const [user, setUser] = useState(() => LocalStore.getAuth()?.user);
+  const [role, setRole] = useState(() => LocalStore.getAuth()?.role);
 
   // Method to check if auth is authenticated
   const isAuthenticated = () => !!auth;
-  
+
   // Method to check if auth has the required role
-  const hasRole = (role) => auth?.user?.Role?.includes(role);
+  const hasRole = (role) => auth?.role?.includes(role);
 
   // Login method (takes authData passed from the SignIn component)
   const login = (authData) => {
-    setAuth(authData); 
+    setAuth(authData);
     LocalStore.storeAuth(authData);
   };
 
@@ -25,18 +27,24 @@ export function AuthProvider({ children }) {
   const updateUser = (updatedUser) => {
     setUser(updatedUser);
     const updatedAuth = { ...auth, user: updatedUser };
-    setAuth(updatedAuth); 
+    setAuth(updatedAuth);
     LocalStore.storeAuth(updatedAuth);
   };
 
   // Logout method
   const logout = () => {
-    LocalStore.removeAuth();
-    setAuth(null);
+    Toaster.loadingToast("Logging You out ....");
+    setTimeout(() => {
+      Toaster.dismissLoadingToast()
+      setAuth(null);
+      LocalStore.removeAuth();
+      Toaster.justToast('info', 'Logout success', () => {
+      });
+    }, 2000);
   };
 
   return (
-    <AuthContext.Provider value={{ auth, user, isAuthenticated, hasRole, login, logout }}>
+    <AuthContext.Provider value={{ auth, user, role, isAuthenticated, hasRole, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

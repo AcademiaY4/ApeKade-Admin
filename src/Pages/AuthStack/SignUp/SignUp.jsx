@@ -8,7 +8,6 @@ export default function SignUp() {
                     <div className="col-12 col-md-4">
                         <div className="mb-lg-9 mb-5 d-flex flex-column align-items-center">
                             <img className='w-65 mb-5' src="../assets/images/logo/freshcart-logo.png" alt="eCommerce HTML Template" />
-
                             <p>Welcome! Register Now.</p>
                         </div>
                         <form className="needs-validation" noValidate>

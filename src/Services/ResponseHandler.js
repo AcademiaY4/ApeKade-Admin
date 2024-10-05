@@ -1,5 +1,5 @@
 import LocalStore from "../Store/LocalStore";
-import Toaster from "./Toaster"
+import Toaster from "../Utils/Toaster/Toaster";
 
 class ResponseHandler {
     handleResponse(error) {
