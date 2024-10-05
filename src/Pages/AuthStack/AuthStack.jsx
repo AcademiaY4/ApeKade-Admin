@@ -5,7 +5,7 @@ import { useAuth } from '../../Context/AuthContext';
 import LocalStore from '../../Store/LocalStore';
 
 export default function AuthStack() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
   const role = LocalStore.getRole()
 
   // If the user is authenticated, redirect them to the home or dashboard page
