@@ -14,7 +14,6 @@ import Customers from './Pages/AppStack/AdminStack/Customers/Customers';
 import Reviews from './Pages/AppStack/AdminStack/Reviews/Reviews';
 import Profile from './Pages/AppStack/AdminStack/Profile/Profile';
 import AppNotifications from './Pages/AppStack/AdminStack/AppNotifications/AppNotifications';
-import AddCustomers from './Pages/AppStack/AdminStack/AddCustomers/AddCustomers';
 import AddSeller from './Pages/AppStack/AdminStack/AddSeller/AddSeller';
 import AddProducts from './Pages/AppStack/AdminStack/AddProducts/AddProducts';
 import AddCategory from './Pages/AppStack/AdminStack/AddCategory/AddCategory';
@@ -28,6 +27,8 @@ import CsrDashboard from './Pages/AppStack/CsrStack/Dashboard/CsrDashboard';
 import VendorDashboard from './Pages/AppStack/VendorStack/Dashboard/VendorDashboard';
 import AdminDashboard from './Pages/AppStack/AdminStack/Dashboard/AdminDashboard';
 import AuthStack from './Pages/AuthStack/AuthStack';
+import AddCustomers from './Pages/AppStack/AdminStack/Customers/AddCustomers/AddCustomers';
+import EditCustomers from './Pages/AppStack/AdminStack/Customers/EditCustomers/EditCustomers';
 
 function App() {
   return (
@@ -64,8 +65,8 @@ function App() {
                 <Route path="addSeller" element={<AddSeller />} />
                 <Route path="editSeller/:id" element={<AddSeller />} />
                 <Route path="customers" element={<Customers />} />
-                <Route path="addCustomer" element={<AddCustomers />} />
-                <Route path="editCustomer/:id" element={<AddCustomers />} />
+                <Route path="customers/addCustomer" element={<AddCustomers />} />
+                <Route path="customers/editCustomer/:id" element={<EditCustomers />} />
                 <Route path="reviews" element={<Reviews />} />
               </Route>
             </Route>

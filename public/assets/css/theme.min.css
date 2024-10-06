@@ -28493,7 +28493,7 @@ input::-webkit-outer-spin-button {
 
 .main-content-wrapper {
     flex-grow: 1;
-    padding: 100px 16px;
+    padding: 100px 16px 0px ;
     width: calc(100% - 280px)
 }
 

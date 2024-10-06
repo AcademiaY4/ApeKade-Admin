@@ -5,7 +5,7 @@ import { useAuth } from '../../../Context/AuthContext'
 export default function SiedBar({role,logout}) {
     
     return (
-        <nav className="navbar-vertical-nav d-none d-xl-block">
+        <nav className="navbar-vertical-nav d-none d-xl-block" style={{zIndex:99}}>
             <div className="navbar-vertical">
                 <div className="px-4 py-5">
                     <NavLink to={`/app/${role.toLowerCase()}/dashboard`} end={true} className="navbar-brand">

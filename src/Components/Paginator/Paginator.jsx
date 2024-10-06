@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Paginator() {
+export default function Paginator({total}) {
     return (
         <div className="border-top d-flex justify-content-between align-items-md-center px-6 py-6 flex-md-row flex-column gap-4">
-            <span>Showing 1 to 8 of 12 entries</span>
+            <span>Showing {total?total:0} entries</span>
             <nav>
                 <ul className="pagination mb-0">
                     <li className="page-item disabled"><a className="page-link" href="#!">Previous</a></li>
