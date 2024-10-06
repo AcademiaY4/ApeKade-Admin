@@ -12,6 +12,7 @@ class UserMService {
         this.DEACTIVATE_USER_URL = "admin/deactivate-user"
         this.CHANGE_PWD_URL = "admin/change-password"
         this.CHANGE_PWD_WOCHK_URL = "admin/change-password-without-check"
+        this.CREATE_NEW_USER_URL = "admin/create-user"
     }
     getAllUsers() {
         return axios.get(this.GET_ALL_USERS_URL, BaseService.getHeader())
@@ -31,19 +32,22 @@ class UserMService {
     deactivateUser(userId) {
         return axios.get(`${this.DEACTIVATE_USER_URL}/${userId}`, BaseService.getHeader());
     }
-    changePassword(userId,input) {
+    changePassword(userId, input) {
         let data = {
-            OldPassword:input.OldPassword,
-            NewPassword:input.NewPassword,
+            OldPassword: input.OldPassword,
+            NewPassword: input.NewPassword,
         }
-        return axios.put(`${this.CHANGE_PWD_URL}/${userId}`,data, BaseService.getHeader());
+        return axios.put(`${this.CHANGE_PWD_URL}/${userId}`, data, BaseService.getHeader());
     }
-    changePasswordWithoutCheck(userId,input) {
+    changePasswordWithoutCheck(userId, input) {
         let data = {
-            NewPassword:input.NewPassword,
+            NewPassword: input.NewPassword,
         }
-        return axios.put(`${this.CHANGE_PWD_WOCHK_URL}/${userId}`,data, BaseService.getHeader());
+        return axios.put(`${this.CHANGE_PWD_WOCHK_URL}/${userId}`, data, BaseService.getHeader());
     }
-    
+    createNewUser(user) {
+        return axios.post(`${this.CREATE_NEW_USER_URL}`, user, BaseService.getHeader());
+    }
+
 }
 export default UserMService = new UserMService();

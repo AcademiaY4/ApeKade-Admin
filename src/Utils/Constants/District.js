@@ -1,4 +1,5 @@
 const districtTypes = [
+    { label: 'select', value: '' },
     { label: 'Colombo', value: 'colombo' },
     { label: 'Gampaha', value: 'gampaha' },
     { label: 'Kalutara', value: 'kalutara' },

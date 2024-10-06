@@ -111,20 +111,6 @@ export default function EditCustomers() {
                 setInitialValues(user)
                 setValues(user);
                 setIsActivated(user.IsApproved);
-
-                // // Set selected province based on user data
-                // const selectedProvinceObj = provinceTypes.find(province => province.value === user.Province);
-                // setSelectedProvince(selectedProvinceObj); // Set the selected province
-
-                // // If district is part of user data, set it as well
-                // if (user.district) {
-                //     handleProvinceChange({ target: { value: user.Province } }); // Update districts based on the selected province
-                //     // After province is set, select the user's district
-                //     setValues(prevValues => ({
-                //         ...prevValues,
-                //         district: user.district // Set district in form values
-                //     }));
-                // }
             }
         } catch (error) {
             console.error(error);
@@ -132,19 +118,6 @@ export default function EditCustomers() {
             setLoading(false)
         }
     };
-
-    // Handle Province Change
-    // const handleProvinceChange = (e) => {
-    //     const selectedProvinceValue = e.target.value;
-    //     const selectedProvinceObj = provinceTypes.find(province => province.value === selectedProvinceValue);
-    //     setSelectedProvince(selectedProvinceObj); // Set selected province and its districts
-
-    //     // Update district in form values to clear previously selected district
-    //     setValues(prevValues => ({
-    //         ...prevValues,
-    //         district: '' // Reset district when province changes
-    //     }));
-    // };
 
     useEffect(() => {
         fetchEmployeeDetails();

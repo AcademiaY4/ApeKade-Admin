@@ -1,4 +1,5 @@
 const provinceTypes = [
+    { label: 'select', value: '' },
     { label: 'Western', value: 'western' },
     { label: 'Central', value: 'central' },
     { label: 'Southern', value: 'southern' },
