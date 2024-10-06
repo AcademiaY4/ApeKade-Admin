@@ -10,8 +10,10 @@ import CusSwal from '../../../../Utils/Swal/CusSwal'
 import PdfGenerator from '../../../../Utils/Pdfs/PdfGenerator'
 import userHeader from '../../../../Utils/Pdfs/UserMHeader'
 import Toaster from '../../../../Utils/Toaster/Toaster'
+import LocalStore from '../../../../Store/LocalStore'
 
 export default function Customers() {
+    const myId = LocalStore.getUser().Id
     const navigation = useNavigate()
     const [loading, setLoading] = useState(false)
     const [users, setUsers] = useState([])
@@ -73,11 +75,13 @@ export default function Customers() {
     };
     // Filter users based on the search term
     const filteredUsers = users.filter(user =>
-        user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.telephone.includes(searchTerm.toLowerCase()) ||
-        user.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.role.toLowerCase().includes(searchTerm.toLowerCase())
+        user.id !== myId && ( // Exclude the current user
+            user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.telephone.includes(searchTerm.toLowerCase()) ||
+            user.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.role.toLowerCase().includes(searchTerm.toLowerCase())
+        )
     );
 
     useEffect(() => {
