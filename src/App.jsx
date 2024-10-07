@@ -29,6 +29,7 @@ import AdminDashboard from './Pages/AppStack/AdminStack/Dashboard/AdminDashboard
 import AuthStack from './Pages/AuthStack/AuthStack';
 import AddCustomers from './Pages/AppStack/AdminStack/Customers/AddCustomers/AddCustomers';
 import EditCustomers from './Pages/AppStack/AdminStack/Customers/EditCustomers/EditCustomers';
+import Stocks from './Pages/AppStack/AdminStack/Stocks/Stocks';
 
 function App() {
   return (
@@ -58,6 +59,8 @@ function App() {
                 <Route path="addProduct" element={<AddProducts />} />
                 <Route path="editProduct/:id" element={<AddProducts />} />
                 <Route path="categories" element={<Categories />} />
+                <Route path="categories/addCategories" element={<AddCategory />} />
+                <Route path="stocks" element={<Stocks />} />
                 <Route path="addCategory" element={<AddCategory />} />
                 <Route path="editCategory/:id" element={<AddCategory />} />
                 <Route path="orders" element={<Orders />} />

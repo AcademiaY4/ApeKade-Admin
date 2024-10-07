@@ -12,27 +12,15 @@ export default function AddCategory() {
                         <div className="card p-5">
                             <form>
                                 <div className="row row-gap-4">
-                                    <div className="col-md-6">
-                                        <input type="text" className="form-control" placeholder="First name" aria-label="First name" required />
+                                    <div className="col-md-12">
+                                        <input type="text" className="form-control" placeholder="Category Name" aria-label="Category Name" required />
                                     </div>
-                                    <div className="col-6">
+                                    <div className="col-12">
                                         <select className="form-select">
-                                            <option selected>India</option>
-                                            <option value={1}>UK</option>
-                                            <option value={2}>USA</option>
-                                            <option value={3}>UAE</option>
+                                            <option selected>Select Status</option>
+                                            <option value={1}>Published</option>
+                                            <option value={2}>Unpublished</option>
                                         </select>
-                                    </div>
-                                    <div className="col-6">
-                                        <select className="form-select">
-                                            <option selected>Gujarat</option>
-                                            <option value={1}>Northern Ireland</option>
-                                            <option value={2}>Alaska</option>
-                                            <option value={3}>Abu Dhabi</option>
-                                        </select>
-                                    </div>
-                                    <div className="col-6">
-                                        <input type="text" className="form-control" placeholder="Zip Code" />
                                     </div>
                                     <div className="col-6 col-md-4">
                                         <input type="text" className="form-control" placeholder="Business Name" />
