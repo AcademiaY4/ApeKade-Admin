@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import BreadCrumb from '../../../../Components/BreadCrumb/BreadCrumb'
+import BreadCrumb from '../../../../../Components/BreadCrumb/BreadCrumb'
 
-export default function AddCategory() {
+export default function EditCategory() {
     const [subcategories, setSubcategories] = useState([{ subCategoryName: '' }]);
     const addInputField = () => {
         setSubcategories([...subcategories, { subCategoryName: '' }]);
@@ -23,13 +23,16 @@ export default function AddCategory() {
     return (
         <main className="main-content-wrapper pb-6 px-0 px-md-4 pt-14">
             <div className="container">
-                <BreadCrumb page={'Add Category'} icon={'fa-sitemap'} />
+                <BreadCrumb page={'Edit Category'} icon={'fa-sitemap'} />
                 {/* row */}
                 <div className="row">
                     <div className="col-md-7 col-12 mb-5">
                         <div className="card p-5">
                             <form>
                                 <div className="row row-gap-4">
+                                    <div className="col-md-12">
+                                        <input type="text" disabled className="form-control" placeholder="Category ID" aria-label="Category ID" required />
+                                    </div>
                                     <div className="col-md-12">
                                         <input type="text" className="form-control" placeholder="Category Name" aria-label="Category Name" required />
                                     </div>
@@ -40,9 +43,10 @@ export default function AddCategory() {
                                             <option value={2}>Unpublished</option>
                                         </select>
                                     </div>
-                                    <h3 className='h5 mb-0 mt-2'>Add Subcategories</h3>
+                                    <h3 className='h5 mb-0 mt-2'>Update Subcategories</h3>
                                     {subcategories.map((setSubcategory, index) => (
-                                        <div key={index} className="col-md-12" style={{ position: 'relative' }}>
+                                    <div className="row row-gap-4">
+                                        <div key={index} className="col-8">
                                              <input
                                                 className="form-control"
                                                 type="text"
@@ -50,6 +54,14 @@ export default function AddCategory() {
                                                 onChange={(e) => handleInputChange(index, e)}
                                                 placeholder={`Subcategory ${index + 1}`}
                                             />
+                                            
+                                        </div>
+                                        <div className="col-4" style={{ position: 'relative' }}>
+                                            <select className="form-select">
+                                                <option selected>Select Status</option>
+                                                <option value={1}>Published</option>
+                                                <option value={2}>Unpublished</option>
+                                            </select>
                                             <button
                                                 type="button"
                                                 onClick={() => removeInputField(index)}
@@ -59,13 +71,14 @@ export default function AddCategory() {
                                                     backgroundColor: 'transparent',
                                                     fontSize: 20,
                                                     position: 'absolute',
-                                                    top: -12,
-                                                    right: 2
+                                                    top: 5,
+                                                    right: -20
                                                 }}
                                             >
                                                 <i class="fa-solid fa-circle-xmark"></i>
                                             </button>
                                         </div>
+                                    </div>
                                     ))}
                                     <div className="col-12">
                                         <button type="button" style={{width: '100%'}} className='btn btn-primary' onClick={addInputField}>

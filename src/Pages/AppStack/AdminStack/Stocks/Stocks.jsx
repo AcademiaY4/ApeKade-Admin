@@ -4,6 +4,7 @@ import Paginator from '../../../../Components/Paginator/Paginator'
 import { Link, useNavigate } from 'react-router-dom'
 import StockService from '../../../../Services/InventoryService/StockService';
 import stockHeader from '../../../../Utils/Pdfs/StockHeader';
+import StockSwal from '../../../../Utils/Swal/StockSwal';
 
 export default function Stocks() {
   const navigation = useNavigate();
@@ -12,12 +13,12 @@ export default function Stocks() {
   const [totalStocks, setTotalStocks] = useState()
   const [searchTerm, setSearchTerm] = useState('');
 
-  const navigateToDisplayStocks = () => {
-    navigation('/app/admin/stocks/displayStocks')
+  const navigateToDisplayStocks = (id) => {
+    navigation(`/app/admin/stocks/displayStocks/${id}`)
   }
 
-  const handleDeleteStock = async (id) => {
-        
+  const handleDeleteStock = async () => {
+    StockSwal.cannotDeleteStock();
   };
 
   const fetchAllStocks = async () => {
@@ -67,7 +68,6 @@ export default function Stocks() {
                   {/* select option */}
                   <div className="d-flex justify-content-around align-items-center gap-3">
                     <button className='btn btn-danger' onClick={() => { generatePdf() }}>Export PDF</button>
-                    <button className='btn btn-dark'>Add New</button>
                   </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@ export default function Stocks() {
                     <tbody>
                       <tr>
                         <td><a className="text-reset">6875443123456</a></td>
-                        <td><Link style={{ textDecoration:'underline' }}>6875443123456</Link></td>
+                        <td><Link style={{ textDecoration:'underline' }}>Galaxy S22 Ultra 5G</Link></td>
                         <td>Mobile Phones</td>
                         <td>Electronics</td>
                         <td>30</td>
@@ -98,10 +98,10 @@ export default function Stocks() {
                           <span className="badge bg-light-primary text-dark-primary">In Stock</span>
                         </td>
                         <td>
-                          <button className="btn btn-primary me-3" >
+                          <button className="btn btn-primary me-3" onClick={() => {navigateToDisplayStocks('6875443123456')}}>
                             More
                           </button>
-                          <button className="btn btn-danger" >
+                          <button className="btn btn-danger" onClick={()=>handleDeleteStock()}>
                             Delete
                           </button>
                         </td>

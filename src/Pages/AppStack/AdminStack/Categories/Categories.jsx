@@ -1,13 +1,34 @@
 import React from 'react'
 import BreadCrumb from '../../../../Components/BreadCrumb/BreadCrumb'
 import Paginator from '../../../../Components/Paginator/Paginator'
+import CategorySwal from '../../../../Utils/Swal/CategorySwal'
 import { Link, useNavigate } from 'react-router-dom'
 
 export default function Categories() {
     const navigation = useNavigate()
     const navigateToAddCategory = () => {
-        navigation('/app/admin/categories/addCategories')
+        navigation('/app/admin/categories/addCategory')
     }
+    const navigateToEditCategory = (id) => {
+        navigation(`/app/admin/categories/editCategory/${id}`)
+    }
+    const handleDeleteUser = async (id) => {
+        CategorySwal.deleteConfiramation(() => {
+            Toaster.loadingToast('Deleting User')
+            try {
+                const result = true;
+                if (result) {
+                    Toaster.justToast('success', "User Deleted", () => { });
+                }
+            } catch (error) {
+                alert(error)
+                // ResponseHandler.handleResponse(error);
+            } finally {
+                fetchAllUsers();
+                Toaster.dismissLoadingToast()
+            }
+        });
+    };
     return (
         <main className="main-content-wrapper">
             <div className="container">
@@ -55,18 +76,19 @@ export default function Categories() {
                                                     <span className="badge bg-light-primary text-dark-primary">Published</span>
                                                 </td>
                                                 <td>
-                                                    Mobile Phones, Tablets, <Link>See more...</Link>
+                                                    Mobile Phones, Tablets...
                                                 </td>
                                                 <td>
-                                                    <button className="btn btn-warning me-3" >
+                                                    <button className="btn btn-primary me-3" >
+                                                        More
+                                                    </button>
+                                                    <button className="btn btn-warning me-3" onClick={() => { navigateToEditCategory("1232445311223") }}>
                                                         Edit
                                                     </button>
-                                                    <button className="btn btn-danger me-3" >
+                                                    <button className="btn btn-danger" onClick={() => { handleDeleteUser("2313144") }}>
                                                         Delete
                                                     </button>
-                                                    <button className="btn btn-danger" >
-                                                        Unpublished
-                                                    </button>
+                                                    
                                                 </td>
                                             </tr>
                                             <tr>
@@ -76,17 +98,17 @@ export default function Categories() {
                                                     <span className="badge bg-light-danger text-dark-danger">Unpublished</span>
                                                 </td>
                                                 <td>
-                                                    Mobile Phones, Tablets, <Link>See more...</Link>
+                                                    Mobile Phones, Tablets...
                                                 </td>
                                                 <td>
+                                                    <button className="btn btn-primary me-3" >
+                                                        More
+                                                    </button>
                                                     <button className="btn btn-warning me-3" >
                                                         Edit
                                                     </button>
                                                     <button className="btn btn-danger me-3" >
                                                         Delete
-                                                    </button>
-                                                    <button className="btn btn-primary" >
-                                                        &nbsp;&nbsp;&nbsp;Published&nbsp;&nbsp;&nbsp;
                                                     </button>
                                                 </td>
                                             </tr>

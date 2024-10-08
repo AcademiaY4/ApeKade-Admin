@@ -30,6 +30,8 @@ import AuthStack from './Pages/AuthStack/AuthStack';
 import AddCustomers from './Pages/AppStack/AdminStack/Customers/AddCustomers/AddCustomers';
 import EditCustomers from './Pages/AppStack/AdminStack/Customers/EditCustomers/EditCustomers';
 import Stocks from './Pages/AppStack/AdminStack/Stocks/Stocks';
+import EditCategory from './Pages/AppStack/AdminStack/Categories/EditCategory/EditCategory';
+import DisplayStock from './Pages/AppStack/AdminStack/Stocks/DisplayStock/DisplayStock';
 
 function App() {
   return (
@@ -59,8 +61,10 @@ function App() {
                 <Route path="addProduct" element={<AddProducts />} />
                 <Route path="editProduct/:id" element={<AddProducts />} />
                 <Route path="categories" element={<Categories />} />
-                <Route path="categories/addCategories" element={<AddCategory />} />
+                <Route path="categories/addCategory" element={<AddCategory />} />
+                <Route path="categories/editCategory/:id" element={<EditCategory />} />
                 <Route path="stocks" element={<Stocks />} />
+                <Route path="stocks/displayStocks/:id" element={<DisplayStock />} />
                 <Route path="addCategory" element={<AddCategory />} />
                 <Route path="editCategory/:id" element={<AddCategory />} />
                 <Route path="orders" element={<Orders />} />
