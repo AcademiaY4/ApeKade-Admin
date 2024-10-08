@@ -31,7 +31,7 @@ export default function EditCategory() {
                             <form>
                                 <div className="row row-gap-4">
                                     <div className="col-md-12">
-                                        <input type="text" disabled className="form-control" placeholder="Category ID" aria-label="Category ID" required />
+                                        <input type="text" disabled className="form-control" placeholder="Category ID" value="67031sdasd755sa7a7" aria-label="Category ID" required />
                                     </div>
                                     <div className="col-md-12">
                                         <input type="text" className="form-control" placeholder="Category Name" aria-label="Category Name" required />
@@ -39,8 +39,8 @@ export default function EditCategory() {
                                     <div className="col-12">
                                         <select className="form-select">
                                             <option selected>Select Status</option>
-                                            <option value={1}>Published</option>
-                                            <option value={2}>Unpublished</option>
+                                            <option value={1}>Activate</option>
+                                            <option value={2}>Deactivate</option>
                                         </select>
                                     </div>
                                     <h3 className='h5 mb-0 mt-2'>Update Subcategories</h3>
@@ -59,8 +59,8 @@ export default function EditCategory() {
                                         <div className="col-4" style={{ position: 'relative' }}>
                                             <select className="form-select">
                                                 <option selected>Select Status</option>
-                                                <option value={1}>Published</option>
-                                                <option value={2}>Unpublished</option>
+                                                <option value={1}>Activate</option>
+                                                <option value={2}>Deactivate</option>
                                             </select>
                                             <button
                                                 type="button"
@@ -87,7 +87,7 @@ export default function EditCategory() {
                                     </div>
                                         
                                     <div className="col-12 text-end">
-                                        <button className='btn btn-primary'>Add Category</button>
+                                        <button className='btn btn-primary'>Update Category</button>
                                     </div>
                                 </div>
                             </form>

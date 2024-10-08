@@ -32,6 +32,10 @@ import EditCustomers from './Pages/AppStack/AdminStack/Customers/EditCustomers/E
 import Stocks from './Pages/AppStack/AdminStack/Stocks/Stocks';
 import EditCategory from './Pages/AppStack/AdminStack/Categories/EditCategory/EditCategory';
 import DisplayStock from './Pages/AppStack/AdminStack/Stocks/DisplayStock/DisplayStock';
+import MyProducts from './Pages/AppStack/VendorStack/Product/MyProducts';
+import AddMyProduct from './Pages/AppStack/VendorStack/Product/AddProduct/AddMyProduct';
+import EditMyProduct from './Pages/AppStack/VendorStack/Product/EditProduct/EditMyProduct';
+import DisplayMyProduct from './Pages/AppStack/VendorStack/Product/DisplayProduct/DisplayMyProduct';
 
 function App() {
   return (
@@ -91,6 +95,10 @@ function App() {
               <Route path="vendor" element={<VendorStack />}>
                 <Route index element={<VendorDashboard />} />
                 <Route path="dashboard" element={<VendorDashboard />} />
+                <Route path="products" element={<MyProducts />} />
+                <Route path="products/addMyProduct" element={<AddMyProduct />} />
+                <Route path="products/displayProduct/:id" element={<DisplayMyProduct />} />
+                <Route path="products/editProduct/:id" element={<EditMyProduct />} />
               </Route>
             </Route>
 

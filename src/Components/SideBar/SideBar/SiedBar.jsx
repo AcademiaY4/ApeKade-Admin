@@ -89,14 +89,14 @@ export default function SiedBar({role,logout}) {
                                         </div>
                                     </NavLink>
                                 </li>
-                                <li className="nav-item">
+                                {/*<li className="nav-item">
                                     <NavLink to={`/app/${role.toLowerCase()}/orders`} className="nav-link">
                                         <div className="d-flex align-items-center">
                                             <span className="nav-link-icon"><i className="fa-solid fa-bag-shopping" /></span>
                                             <span className="nav-link-text">My Orders</span>
                                         </div>
                                     </NavLink>
-                                </li>
+                                </li>*/}
                             </>
                         )}
 

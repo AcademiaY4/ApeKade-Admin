@@ -65,6 +65,7 @@ export default function Categories() {
                                                 <th>#Proudcts</th>
                                                 <th>Status</th>
                                                 <th>Sub Categories</th>
+                                                <th/>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -73,11 +74,12 @@ export default function Categories() {
                                                 <td><a className="text-reset">Electronics</a></td>
                                                 <td>12</td>
                                                 <td>
-                                                    <span className="badge bg-light-primary text-dark-primary">Published</span>
+                                                    <span className="badge bg-light-primary text-dark-primary">Activated</span>
                                                 </td>
                                                 <td>
-                                                    Mobile Phones, Tablets...
+                                                    Mobile Phones, Tablets, Laptops...
                                                 </td>
+                                                <td/>
                                                 <td>
                                                     <button className="btn btn-primary me-3" >
                                                         More
@@ -95,11 +97,12 @@ export default function Categories() {
                                                 <td><a className="text-reset">Home Appliances</a></td>
                                                 <td>37</td>
                                                 <td>
-                                                    <span className="badge bg-light-danger text-dark-danger">Unpublished</span>
+                                                    <span className="badge bg-light-danger text-dark-danger">Deactivated</span>
                                                 </td>
                                                 <td>
-                                                    Mobile Phones, Tablets...
+                                                    Kitchen Appliances, Washing Machines...
                                                 </td>
+                                                <td/>
                                                 <td>
                                                     <button className="btn btn-primary me-3" >
                                                         More
