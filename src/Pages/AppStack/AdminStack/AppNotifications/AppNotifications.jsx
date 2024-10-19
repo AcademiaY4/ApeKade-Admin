@@ -1,6 +1,7 @@
 import React from 'react'
 import Paginator from '../../../../Components/Paginator/Paginator'
 import BreadCrumb from '../../../../Components/BreadCrumb/BreadCrumb'
+import { Link } from 'react-router-dom'
 
 export default function AppNotifications() {
     return (
@@ -38,26 +39,27 @@ export default function AppNotifications() {
                                         <thead className="bg-light">
                                             <tr>
 
-                                                <th>Product</th>
-                                                <th>Name</th>
+                                                <th>Title</th>
                                                 <th>Message</th>
-                                                <th>Status</th>
+                                                <th>Related</th>
+                                                <th>Type</th>
                                                 <th>Date</th>
-                                                <th />
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><a  className="text-reset">Haldiram Sev Bhujia</a></td>
-                                                <td>Barry McKenzie</td>
+                                                <td><a  className="text-reset">Low Stock Alert</a></td>
                                                 <td>
-                                                    <span className="text-truncate">Nice &amp; fresh oranges with value for money..</span>
+                                                    <span className="text-truncate">Stock of one of your products is low..</span>
                                                 </td>
                                                 <td>
-                                                    <span className="text-truncate text-warning">pending</span>
+                                                    Product | <Link style={{ textDecoration:'underline' }}>67030bb...</Link>
                                                 </td>
-                                                <td>23 Nov,2022</td>
                                                 <td>
+                                                    <span className="text-truncate text-danger">Low Stock</span>
+                                                </td>
+                                                <td>02 Oct 2024</td>
+                                                {/*<td>
                                                     <div className="dropdown">
                                                         <a  className="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
                                                             <i className="feather-icon icon-more-vertical fs-5" />
@@ -77,7 +79,7 @@ export default function AppNotifications() {
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                </td>
+                                                </td>*/}
                                             </tr>
 
                                         </tbody>
