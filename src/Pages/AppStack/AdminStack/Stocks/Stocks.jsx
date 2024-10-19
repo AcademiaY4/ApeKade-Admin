@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import BreadCrumb from '../../../../Components/BreadCrumb/BreadCrumb'
 import Paginator from '../../../../Components/Paginator/Paginator'
 import { Link, useNavigate } from 'react-router-dom'
 import StockService from '../../../../Services/InventoryService/StockService';
 import stockHeader from '../../../../Utils/Pdfs/StockHeader';
 import StockSwal from '../../../../Utils/Swal/StockSwal';
+import ProductSwal from '../../../../Utils/Swal/ProductSwal';
+import Toaster from '../../../../Utils/Toaster/Toaster';
+import ProductService from '../../../../Services/Product/ProductService';
 
 export default function Stocks() {
   const navigation = useNavigate();
@@ -12,22 +15,44 @@ export default function Stocks() {
   const [stocks, setStocks] = useState([])
   const [totalStocks, setTotalStocks] = useState()
   const [searchTerm, setSearchTerm] = useState('');
+  
 
   const navigateToDisplayStocks = (id) => {
     navigation(`/app/admin/stocks/displayStocks/${id}`)
   }
 
-  const handleDeleteStock = async () => {
-    StockSwal.cannotDeleteStock();
+  const navigateToDisplayProduct = (id) => {
+      navigation(`/app/vendor/products/displayProduct/${id}`)
+  }
+
+  const handleDeleteStock = async (id) => {
+    ProductSwal.deleteConfiramation(async () => {
+            Toaster.loadingToast('Deleting Stock')
+            try {
+                const result = await StockService.deleteStock(id);
+                /*if (result) {
+                    const stockResult = await ProductService.deleteProduct(id);
+                    Toaster.justToast('success', "Product Deleted", () => { });
+              }*/
+              Toaster.justToast('success', "Stock Deleted", () => { });
+            } catch (error) {
+                alert(error)
+                // ResponseHandler.handleResponse(error);
+            } finally {
+                fetchAllProducts();
+                Toaster.dismissLoadingToast()
+            }
+        });
   };
 
   const fetchAllStocks = async () => {
     try {
       setLoading(true)
       const result = await StockService.getAllStocks();
-      if (result.data.status) {
-        setTotalStocks(result.data.data.stocks.length())
-        setStocks(result.data.data.stocks)
+      if (result.data.Status) {
+        console.log(result.data.Data)
+        setTotalStocks(result.data.Data.length)
+        setStocks(result.data.Data)
       }
     } catch (error) {
       alert(error)
@@ -35,6 +60,17 @@ export default function Stocks() {
       setLoading(false)
     }
   }
+  useEffect(() => {
+      fetchAllStocks()
+  }, [])
+  const handleSearchChange = (event) => {
+      setSearchTerm(event.target.value);
+  };
+  const filteredStocks = stocks.filter(stock =>
+    (
+      stock.Category.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
 
   const generatePdf = () => {
     Toaster.loadingToast('Generating Pdf')
@@ -62,7 +98,14 @@ export default function Stocks() {
                   <div className="col-md-4 col-12">
                       {/* form */}
                       <form className="d-flex" role="search">
-                          <input className="form-control" type="search" placeholder="Search Stocks" aria-label="Search" />
+                        <input
+                            className="form-control"
+                            type="search"
+                            placeholder="Search Users"
+                            aria-label="Search"
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                        />
                       </form>
                   </div>
                   {/* select option */}
@@ -88,24 +131,36 @@ export default function Stocks() {
                     </tr>
                   </thead>
                     <tbody>
-                      <tr>
-                        <td><a className="text-reset">6875443123456</a></td>
-                        <td><Link style={{ textDecoration:'underline' }}>Galaxy S22 Ultra 5G</Link></td>
-                        <td>Mobile Phones</td>
-                        <td>Electronics</td>
-                        <td>30</td>
-                        <td>
-                          <span className="badge bg-light-primary text-dark-primary">In Stock</span>
-                        </td>
-                        <td>
-                          <button className="btn btn-primary me-3" onClick={() => {navigateToDisplayStocks('6875443123456')}}>
-                            More
-                          </button>
-                          <button className="btn btn-danger" onClick={()=>handleDeleteStock()}>
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
+                      {filteredStocks.length > 0 ? (
+                        filteredStocks.map((stock) => (
+                            <tr key={stock.Id}>
+                                <td>{ stock.Id }</td>
+                                <td><Link onClick={()=>{navigateToDisplayProduct(stock.ProductId)}} style={{ textDecoration:'underline' }}>See Product</Link></td>
+                                <td>
+                                    { stock.SubCategory }
+                                </td>
+                                <td>
+                                    { stock.Category }
+                                </td>
+                                <td>
+                                    { stock.Quantity }
+                                </td>
+                                <td>
+                                  <span className="badge bg-light-primary text-dark-primary">In Stock</span>
+                                </td>
+                                <td>
+                                    <button className="btn btn-danger" onClick={() => { handleDeleteStock(stock.Id) }}>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td></td>
+                        </tr>
+                    )}
+                      
                     </tbody>
                   </table>
                 </div>
