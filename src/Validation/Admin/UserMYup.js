@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import Provinces from '../../Utils/Constants/Provinces';
 import Districts from '../../Utils/Constants/Districts';
 
-const roleTypes = ['ADMIN', 'USER', 'VENDOR', 'CSR']; // Roles from your Role enum
+const roleTypes = ['ADMIN', 'BUYER', 'VENDOR', 'CSR']; // Roles from your Role enum
 const statusTypes = ['PENDING', 'ACTIVE', 'DEACTIVATED']; // Status enum
 const provinceTypes = Provinces;
 const districtTypes = Districts;
