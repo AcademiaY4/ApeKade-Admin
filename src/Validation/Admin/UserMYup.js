@@ -71,11 +71,11 @@ class UserMYup {
 
     changePassword = yup.object({
         // OldPassword: yup.string().required('old password is required'),
-        NewPassword: yup.string()
+        Password: yup.string()
             .min(8, 'Must be at least 8 characters long')
             .required('New password is required'),
         ConfirmPassword: yup.string()
-            .oneOf([yup.ref('NewPassword')], 'Passwords must match')
+            .oneOf([yup.ref('Password')], 'Passwords must match')
             .required('Please confirm your new password'),
     })
 
@@ -94,11 +94,11 @@ class UserMYup {
         ZipCode: yup.number('Must be a number'),
         Company: yup.string(),
 
-        NewPassword: yup.string()
+        Password: yup.string()
             .min(8, 'Must be at least 8 characters long')
             .required('New password is required'),
         ConfirmPassword: yup.string()
-            .oneOf([yup.ref('NewPassword')], 'Passwords must match')
+            .oneOf([yup.ref('Password')], 'Passwords must match')
             .required('Please confirm your new password'),
     });
 }

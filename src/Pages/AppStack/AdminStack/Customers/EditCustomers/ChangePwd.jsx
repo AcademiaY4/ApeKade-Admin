@@ -7,7 +7,7 @@ import UserMService from '../../../../../Services/Admin/UserMService';
 export default function ChangePwd({ userId , loading, userValues, fetchEmployeeDetails, setLoading }) {
     const { setValues, values, handleChange, handleSubmit, errors, touched } = useFormik({
         initialValues: {
-            NewPassword: '',
+            Password: '',
             ConfirmPassword: '',
         },
         validationSchema: UserMYup.changePassword,
@@ -46,14 +46,14 @@ export default function ChangePwd({ userId , loading, userValues, fetchEmployeeD
                             <div className="col-md-12">
                                 <input
                                     type="password"
-                                    className={`form-control ${errors.NewPassword && touched.NewPassword ? 'is-invalid' : ''}`}
+                                    className={`form-control ${errors.Password && touched.Password ? 'is-invalid' : ''}`}
                                     placeholder="Enter New Password"
-                                    name="NewPassword"
-                                    value={values.NewPassword}
+                                    name="Password"
+                                    value={values.Password}
                                     onChange={handleChange}
                                 />
                                 <div className="invalid-feedback">
-                                    {errors.NewPassword}
+                                    {errors.Password}
                                 </div>
                             </div>
                             <div className="col-md-12">

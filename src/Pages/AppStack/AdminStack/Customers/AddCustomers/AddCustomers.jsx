@@ -30,7 +30,7 @@ export default function AddCustomers() {
             District: '',
             City: '',
             ZipCode: '',
-            NewPassword: '',
+            Password: '',
             ConfirmPassword: '',
         },
         validationSchema: UserMYup.createNewUser,
@@ -40,7 +40,7 @@ export default function AddCustomers() {
             try {
                 // Create a new user
                 const result = await UserMService.createNewUser(values);
-                if (result.data.Code === 200) {
+                if (result.data.Status) {
                     Toaster.justToast('success', result.data.Message, () => {
                         // Navigate to the customers list or any desired location
                         navigate("/app/admin/customers")
@@ -222,13 +222,13 @@ export default function AddCustomers() {
                                                 <div className="col-md-12">
                                                     <input
                                                         type="password"
-                                                        className={`form-control ${errors.NewPassword && touched.NewPassword ? 'is-invalid' : ''}`}
+                                                        className={`form-control ${errors.Password && touched.Password ? 'is-invalid' : ''}`}
                                                         placeholder="Enter New Password"
-                                                        name="NewPassword"
-                                                        value={values.NewPassword}
+                                                        name="Password"
+                                                        value={values.Password}
                                                         onChange={handleChange}
                                                     />
-                                                    <div className="invalid-feedback">{errors.NewPassword}</div>
+                                                    <div className="invalid-feedback">{errors.Password}</div>
                                                 </div>
                                                 <div className="col-md-12">
                                                     <input

@@ -6,7 +6,7 @@ class PdfGenerator {
     generatePdf(data, titles, headers) {
         const name = titles
         const pdf_title = name
-        const pdf_email = "mailus@helashop.com"
+        const pdf_email = "mailus@apekade.com"
         const pdf_tel = "+94 76 896 5332"
         const pdf_address = " No 221/B, Colombo Road, Galle";
 
@@ -26,7 +26,7 @@ class PdfGenerator {
         doc.setFontSize(16);
         doc.setFont("helvetica", "bold");
         doc.setTextColor("#000000");
-        doc.text("HelaShop Admin", 30, 70);
+        doc.text("ApeKade Admin", 30, 70);
         doc.setFont("helvetica", "normal");
         doc.setFontSize(10);
         doc.setTextColor("#999999");
