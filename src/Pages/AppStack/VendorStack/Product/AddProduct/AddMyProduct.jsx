@@ -1,12 +1,45 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import BreadCrumb from '../../../../../Components/BreadCrumb/BreadCrumb'
+import { storage } from '../../../../../Utils/firebase/firebaseConfig';  
+import { ref, uploadBytes , getDownloadURL } from 'firebase/storage';
+import { useFormik } from 'formik';
+import LocalStore from '../../../../../Store/LocalStore'
+import ProductService from '../../../../../Services/Product/ProductService';
+import StockService from '../../../../../Services/InventoryService/StockService';
+import CategoryService from '../../../../../Services/InventoryService/CategoryService';
 
 export default function AddMyProduct() {
+    const user = LocalStore.getUser()
     const [showColors, setShowColors] = useState(false);
     const [showSizes, setShowSizes] = useState(false);
+    const [imageFile, setImageFile] = useState(null);
+    const [imageUrl, setImageUrl] = useState('');
+    const [uploading, setUploading] = useState(false);
+    const [loading, setLoading] = useState(false)
+    const [categories, setCategories] = useState([])
     
-    const [colors, setColors] = useState([{ color: '', quantity: '' }]);
-    const [sizes, setSizes] = useState([{ size: '', quantity: '' }]);
+    const [colors, setColors] = useState([{ ColorCode: '', Quantity: 0 }]);
+    const [sizes, setSizes] = useState([{ SizeString: '', Quantity: 0 }]);
+    
+    const fetchAllCategories = async () => {
+      try {
+        setLoading(true)
+        const result = await CategoryService.getAllCategories()
+        if (result.data.Status) {
+            setCategories(result.data.Data)
+        }
+      } catch (error) {
+          alert(error)
+      } finally {
+          setLoading(false)
+      }
+    }
+    useEffect(() => {
+        fetchAllCategories()
+    }, [])
+    const handleImageChange = (e) => {
+      setImageFile(e.target.files[0]);
+    };
     
     const toggleColors = () => {
       setShowColors(!showColors);
@@ -17,7 +50,7 @@ export default function AddMyProduct() {
     };
 
     const addColorField = () => {
-      setColors([...colors, { color: '', quantity: '' }]);
+      setColors([...colors, { ColorCode: '', Quantity: 0 }]);
     };
 
     const removeColorField = (index) => {
@@ -34,7 +67,7 @@ export default function AddMyProduct() {
     };
 
     const addSizeField = () => {
-      setSizes([...sizes, { size: '', quantity: '' }]);
+      setSizes([...sizes, { SizeString: '', Quantity: 0 }]);
     };
 
     const removeSizeField = (index) => {
@@ -43,18 +76,69 @@ export default function AddMyProduct() {
     };
 
     const handleSizeChange = (index, event) => {
-      const { name, value } = event.target;
-      const updatedSizes = sizes.map((sizeField, i) => 
-        i === index ? { ...sizeField, [name]: value } : sizeField
-      );
-      setSizes(updatedSizes);
+        const { name, value } = event.target;
+        const updatedSizes = sizes.map((sizeField, i) => 
+          i === index ? { ...sizeField, [name]: value } : sizeField
+        );
+        setSizes(updatedSizes);
     };
+    
+    const { values, handleChange, handleSubmit } = useFormik({
+      initialValues: {
+        Name: '',
+        Price: 0.0,
+        Discount: 0.0,
+        Description: '',
+        Quantity: 0,
+        ImageUrl: '',
+        Category: '',
+        SubCategory: '',
+        Brand: '',
+        VendorID: '',
+        Colors: [],
+        Sizes: [],
+      },
+      onSubmit: async (values) => {
+        try {
+          // Handle image upload
+          if (imageFile) {
+            const imageRef = ref(storage, `products/${user.Id}/${values.Name}`);
+            const uploadResult = await uploadBytes(imageRef, imageFile);
+            const downloadUrl = await getDownloadURL(uploadResult.ref);
+            setImageUrl(downloadUrl);
+            values.ImageUrl = downloadUrl;  // Add image URL to form values
+          }
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      console.log('Colors:', colors);
-      console.log('Sizes:', sizes);
-    };
+          // Add colors and sizes to values
+          values.Colors = colors;
+          values.Sizes = sizes;
+          values.VendorID = user.Id
+
+          console.log("Values:", values)
+
+          // Now send all data to backend API
+          const result = await ProductService.createProduct(values); // Assuming you have a ProductService
+          console.log("Product created:", result);
+          if (result.data.Code === 201) {
+            const stockValues = {
+              ProductId: result.data.Data.ProductId,
+              SubCategory: values.SubCategory,
+              Category: values.Category,
+              Quantity: values.Quantity
+            }
+            const stockResult = await StockService.createStrock(stockValues);
+            if (stockResult.data.Code == 201) {
+              alert('Stock and Product added successfully!');
+            }
+          } else {
+            alert('Product added successfully!');
+          }
+        } catch (error) {
+          console.error('Error adding product:', error);
+        }
+      },
+    });
+
     return (
         <main className="main-content-wrapper pb-6 px-0 px-md-4 pt-14">
             <div className="container">
@@ -63,37 +147,57 @@ export default function AddMyProduct() {
                 <div className="row">
                     <div className="col-md-7 col-12 mb-5">
                         <div className="card p-5">
-                            <form>
+                            <form onSubmit={handleSubmit}>
                                 <div className="row row-gap-4">
                                     <div className="col-md-12">
-                                        <input type="text" className="form-control" placeholder="Product Name" aria-label="Product Name" required />
+                                        <input type="text" className="form-control" value={values.Name} onChange={handleChange} name='Name' placeholder="Product Name" aria-label="Product Name" required />
                                     </div>
                                     <div className="col-md-12">
-                                        <textarea className="form-control" placeholder='Description'></textarea>
+                                        <textarea className="form-control" value={values.Description} onChange={handleChange} name='Description' placeholder='Description'></textarea>
                                     </div>
                                     <div className="col-12">
-                                        <select className="form-select">
-                                            <option selected>Select Category</option>
-                                            <option value={1}>Elrctronic</option>
-                                            <option value={2}>Home Appliances</option>
-                                        </select>
-                                    </div>
-                                    <div className="col-12">
-                                        <select className="form-select">
-                                            <option selected>Select Subcategory</option>
-                                            <option value={1}>Mobile Phones</option>
-                                            <option value={2}>Tablets</option>
-                                            <option value={3}>Laptops</option>
-                                        </select>
+                                    <select 
+                                        className="form-select" 
+                                        value={values.Category} 
+                                        onChange={handleChange} 
+                                        name="Category"
+                                    >
+                                        <option value="" disabled selected>Select Category</option>
+                                        {categories.map((category) => (
+                                            <option key={category.Id} value={category.CategoryName}>
+                                                {category.CategoryName}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div className="col-12 mt-3">
+                                    <select 
+                                        className="form-select" 
+                                        value={values.SubCategory} 
+                                        onChange={handleChange} 
+                                        name="SubCategory"
+                                    >
+                                        <option value="" disabled selected>Select Subcategory</option>
+                                        {categories
+                                            .filter((category) => category.CategoryName === values.Category)
+                                            .flatMap((category) => category.SubCategories)
+                                            .map((subCategory) => (
+                                                <option key={subCategory.Id} value={subCategory.SubCategoryName}>
+                                                    {subCategory.SubCategoryName}
+                                                </option>
+                                            ))}
+                                    </select>
+                                </div>
+
+                                    <div className="col-md-4">
+                                        <input type="text" className="form-control" value={values.Price} onChange={handleChange} name='Price' placeholder="Original Price" aria-label="Original Price" required />
                                     </div>
                                     <div className="col-md-4">
-                                        <input type="text" className="form-control" placeholder="Original Price" aria-label="Original Price" required />
+                                        <input type="text" className="form-control" value={values.Discount} onChange={handleChange} name='Discount' placeholder="Discount" aria-label="Discount" required />
                                     </div>
                                     <div className="col-md-4">
-                                        <input type="text" className="form-control" placeholder="Discount Price" aria-label="Discount Price" required />
-                                    </div>
-                                    <div className="col-md-4">
-                                        <input type="text" className="form-control" placeholder="Quantity" aria-label="Quantity" disabled />
+                                        <input type="text" className="form-control" value={values.Quantity} onChange={handleChange} name='Quantity' placeholder="Quantity" aria-label="Quantity"  />
                                     </div>
                                     <h3 className='h5 mb-0 mt-2'>Add Attributes of Product</h3>
                                     <div>
@@ -115,8 +219,8 @@ export default function AddMyProduct() {
                                             <div className="col-2">
                                               <input
                                                 type="color"
-                                                name="color"
-                                                value={colorField.color}
+                                                name="ColorCode"
+                                                value={colorField.ColorCode}
                                                 onChange={(e) => handleColorChange(index, e)}
                                                 style={{ height: '100%' }}
                                                 className="form-control"
@@ -125,8 +229,8 @@ export default function AddMyProduct() {
                                             <div className="col-5">
                                               <input
                                                 type="number"
-                                                name="colorcode"
-                                                value={colorField.color}
+                                                name="ColorCode"
+                                                value={colorField.ColorCode}
                                                 onChange={(e) => handleColorChange(index, e)}
                                                 placeholder="Color Code"
                                                 className="form-control"
@@ -136,8 +240,8 @@ export default function AddMyProduct() {
                                             <div className="col-5">
                                               <input
                                                 type="number"
-                                                name="quantity"
-                                                value={colorField.quantity}
+                                                name="Quantity"
+                                                value={colorField.Quantity}
                                                 onChange={(e) => handleColorChange(index, e)}
                                                 placeholder="Quantity"
                                                 className="form-control"
@@ -193,8 +297,8 @@ export default function AddMyProduct() {
                                             <div className="col-6">
                                               <input
                                                 type="text"
-                                                name="size"
-                                                value={sizeField.size}
+                                                name="SizeString"
+                                                value={sizeField.SizeString}
                                                 onChange={(e) => handleSizeChange(index, e)}
                                                 placeholder="Size"
                                                 className="form-control"
@@ -203,8 +307,8 @@ export default function AddMyProduct() {
                                             <div className="col-6">
                                               <input
                                                 type="number"
-                                                name="quantity"
-                                                value={sizeField.quantity}
+                                                name="Quantity"
+                                                value={sizeField.Quantity}
                                                 onChange={(e) => handleSizeChange(index, e)}
                                                 placeholder="Quantity"
                                                 className="form-control"
@@ -243,14 +347,14 @@ export default function AddMyProduct() {
                                     <h3 className='h5 mb-0 mt-2'>Upload Image</h3>
                                     
                                     <div className="col-md-6">
-                                        <input type="file" className="form-control" placeholder="Original Price" aria-label="Original Price" required />
+                                        <input type="file" className="form-control" onChange={handleImageChange} placeholder="Original Price" aria-label="Original Price" required />
                                     </div>
                                     <div className="col-md-6">
                                         <input type="hidden" disabled className="form-control" placeholder="URL of Image" aria-label="URL of Image" required />
                                     </div>
                                         
                                     <div className="col-12 text-end">
-                                        <button className='btn btn-primary'>Add Product</button>
+                                        <button type='submit' className='btn btn-primary'>Add Product</button>
                                     </div>
                                 </div>
                             </form>

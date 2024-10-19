@@ -63,7 +63,8 @@ function App() {
                 <Route path="dashboard" element={<AdminDashboard />} />
                 <Route path="products" element={<Products />} />
                 <Route path="addProduct" element={<AddProducts />} />
-                <Route path="editProduct/:id" element={<AddProducts />} />
+                <Route path="editProduct/:id" element={<EditMyProduct />} />
+                <Route path="product/:id" element={<EditMyProduct />} />
                 <Route path="categories" element={<Categories />} />
                 <Route path="categories/addCategory" element={<AddCategory />} />
                 <Route path="categories/editCategory/:id" element={<EditCategory />} />
