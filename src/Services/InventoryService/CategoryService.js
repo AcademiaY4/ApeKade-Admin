@@ -5,7 +5,7 @@ class CategoryService {
   constructor() {
     BaseService.getBaseURL()
     this.CREATE_CATEGORY_URL = "category/create"
-    this.UPDATE_CATEGORY_URL = "category/update"
+    this.UPDATE_CATEGORY_URL = "category/edit"
     this.GET_ALL_CATEGORIES_URL = "category/get"
     this.DELETE_CATEGORY_URL = "category/delete"
     this.GET_CATEGORY_BY_ID_URL = "category/get"

@@ -78,7 +78,7 @@ export default function EditCategory() {
             const response = await CategoryService.updateCategory(id, updatedCategory);
             if (response.data.Status) {
                 alert('Category updated successfully');
-                navigate('/categories'); // Navigate back to the category list page
+                navigate('/app/admin/categories'); // Navigate back to the category list page
             } else {
                 alert('Failed to update category');
             }
