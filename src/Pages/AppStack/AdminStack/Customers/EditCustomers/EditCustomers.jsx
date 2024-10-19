@@ -176,7 +176,7 @@ export default function EditCustomers() {
                                                 </div>
                                                 <div className="col-md-6 ">
                                                     <div className="input-group">
-                                                        <div class="input-group-text">+94</div>
+                                                        <div class="input-group-text">Tel</div>
                                                         <input
                                                             type="text"
                                                             maxLength={9}

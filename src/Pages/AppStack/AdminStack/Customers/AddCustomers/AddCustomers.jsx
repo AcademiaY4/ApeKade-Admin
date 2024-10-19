@@ -108,7 +108,7 @@ export default function AddCustomers() {
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="input-group">
-                                                        <div className="input-group-text">+94</div>
+                                                        <div className="input-group-text">Tel</div>
                                                         <input
                                                             type="text"
                                                             maxLength={9}
